@@ -39,4 +39,11 @@ public class ApiController {
 		result.setData("test","123123");
 		return ResponseEntity.ok(gson.toJson(result));
 	}
+	
+	@RequestMapping(value = "/testApi2", method = {RequestMethod.POST}, produces = "application/json") 
+	public ResponseEntity<String> testApi2(@RequestParam Map<String, Object> param,HttpServletRequest req, HttpServletResponse res){
+		Result result = new Result();
+		result.setData("test","54321");
+		return ResponseEntity.ok(gson.toJson(result));
+	}
 }

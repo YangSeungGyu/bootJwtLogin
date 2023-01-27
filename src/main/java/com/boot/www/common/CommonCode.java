@@ -2,7 +2,6 @@ package com.boot.www.common;
 
 public enum CommonCode {
 	SUCCESS_NORMAL("S001", "처리되었습니다."),
-	
 	ERROR_DUPLICATE("E011", "중복 에러"),
 	ERROR_OTHER("E099", "기타에러");
 

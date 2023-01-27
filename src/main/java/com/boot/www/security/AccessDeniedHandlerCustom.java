@@ -1,4 +1,4 @@
-package com.boot.www.token;
+package com.boot.www.security;
 
 import java.io.IOException;
 

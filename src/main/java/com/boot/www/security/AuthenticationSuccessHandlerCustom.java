@@ -1,4 +1,4 @@
-package com.boot.www.token;
+package com.boot.www.security;
 
 import java.io.IOException;
 
@@ -14,8 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.boot.www.auth.bean.Result;
+import com.boot.www.auth.bean.UserCustomDetails;
 import com.boot.www.auth.bean.UserVO;
-import com.boot.www.security.UserCustomDetails;
 import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class AuthenticationSuccessHandlerCustom implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
     	
-    	UserCustomDetails userCustomDetails = (UserCustomDetails) authentication.getPrincipal();
+    UserCustomDetails userCustomDetails = (UserCustomDetails) authentication.getPrincipal();
     //---------------------------------------------------------------------------
     UserVO user = userCustomDetails.getUser();
     //newSession.setAttribute("seq", user.getSeq());

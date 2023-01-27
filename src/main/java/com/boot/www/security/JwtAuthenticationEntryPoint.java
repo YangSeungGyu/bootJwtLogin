@@ -1,4 +1,4 @@
-package com.boot.www.token;
+package com.boot.www.security;
 
 import java.io.IOException;
 
@@ -19,8 +19,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		//토큰 인증안되었을 경우 페이지 로딩전에 타는곳. 아마?
-		log.debug("토큰 인증 안됨");
+		
+		//인증 실패시 로그인 페이지 보내기 필요시
+		//response.sendRedirect("/login");
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 	}
 

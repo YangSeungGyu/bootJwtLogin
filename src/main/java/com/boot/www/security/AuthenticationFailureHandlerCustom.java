@@ -1,4 +1,4 @@
-package com.boot.www.token;
+package com.boot.www.security;
 
 
 import java.io.IOException;
@@ -24,8 +24,7 @@ public class AuthenticationFailureHandlerCustom implements AuthenticationFailure
 	
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-    	
-    	log.debug("5555555555555555555");
+    	log.debug("login-fail");
     	
     	String code = "400";
 		 if(exception instanceof DisabledException) {

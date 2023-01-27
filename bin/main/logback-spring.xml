@@ -11,7 +11,7 @@
     
     <logger name="com.boot.www" level="DEBUG" />
     
-    <logger name="org.springframework" level="DEBUG"
+    <logger name="org.springframework" level="ERROR"
         additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>

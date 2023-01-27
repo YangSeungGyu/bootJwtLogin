@@ -20,7 +20,9 @@ main
 </body>
 <br/>
 <input type="hidden" id="token"></input>
-<button type="button" onclick="testApi()">testApi</button>
+<button type="button" onclick="testApi()">testApi(토큰 버전)</button>
+<button type="button" onclick="testApi2()">testApi2(토큰 미입력)</button>
+<button type="button" onclick="testApi3()">testApi2(토큰 미입력)</button>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -38,7 +40,46 @@ function testApi(){
 		dataType: 'json',
 		beforeSend: function (xhr) {
             xhr.setRequestHeader("Content-type","application/json");
-            xhr.setRequestHeader("Authorization","Bearer " + token);
+            xhr.setRequestHeader("Authorization",token);
+        },
+		success: function(result){
+			console.log(result.resultCode +" / " +result.resultMsg);
+			alert(result.data.test);
+		},
+		error: function(xhr){
+			alert("faild");
+		}
+	});
+}
+
+
+function testApi2(){
+	$.ajax({
+		url :'/api/testApi2',
+		type : "POST",
+		dataType: 'json',
+		success: function(result){
+			console.log(result.resultCode +" / " +result.resultMsg);
+			alert(result.data.test);
+		},
+		error: function(xhr){
+			alert("faild");
+		}
+	});
+}
+
+
+
+function testApi3(){
+	//변경된 토큰 확인
+	let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3Mzk0NDI0NiwiZXhwIjoxNjc0NTQ5MDQ2LCJ1c2VySWQiOiJhZG1pbiJ9.wuOESG2hyw0cEcN1LQ0scyXlafsRikyFYqznQxXKo_kfyxFG53Rmym8ZOdDCuVCTue6ZZSATZwSQkPaNjWx_HQ";
+	$.ajax({
+		url :'/api/testApi1',
+		type : "POST",
+		dataType: 'json',
+		beforeSend: function (xhr) {
+            xhr.setRequestHeader("Content-type","application/json");
+            xhr.setRequestHeader("Authorization",token);
         },
 		success: function(result){
 			console.log(result.resultCode +" / " +result.resultMsg);

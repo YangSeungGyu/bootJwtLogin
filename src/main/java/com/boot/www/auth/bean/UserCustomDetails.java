@@ -1,4 +1,4 @@
-package com.boot.www.security;
+package com.boot.www.auth.bean;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,6 @@ import java.util.Objects;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import com.boot.www.auth.bean.UserVO;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +23,6 @@ public class UserCustomDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-    	log.debug("login : 333333333333333333333");
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(() -> ("ROLE_" + user.getAuth())); 
         return authorities;
