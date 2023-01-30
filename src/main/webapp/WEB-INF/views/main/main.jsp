@@ -23,6 +23,10 @@ main
 <button type="button" onclick="testApi()">testApi(토큰 버전)</button>
 <button type="button" onclick="testApi2()">testApi2(토큰 미입력)</button>
 <button type="button" onclick="testApi3()">testApi2(토큰 미입력)</button>
+<br/>
+<button type="button" onclick="location.href='/test/pageTest'">testPage</button>
+
+
 
 <script type="text/javascript">
 $(document).ready(function(){

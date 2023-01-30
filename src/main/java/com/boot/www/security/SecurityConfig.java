@@ -51,7 +51,7 @@ public class SecurityConfig {
         http.csrf().disable();// csrf protection를 해제 jwt는 서버에 인증 정보를 저장하지 않는다
         
         http.authorizeRequests()
-        .antMatchers("/","/main","/auth/**").permitAll()
+        .antMatchers("/","/main","/auth/**","/test/pageTest","/test/selectPageList").permitAll()
         //.antMatchers("/api/**","/test/**").hasRole("A")//ADMIN 전용 URL 셋팅 이건 자동으로 실패
 		.anyRequest().authenticated();//이건  BasicAuthenticationFilter 에서 에러 캐치는 되는데 그냥 넘김 
         
