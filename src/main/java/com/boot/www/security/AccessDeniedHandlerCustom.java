@@ -17,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AccessDeniedHandlerCustom implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-    	log.debug(" 이건 뭐냐55555555555555555555555555");
         log.warn("[AccessDeniedHandlerCustom] Forbidden error : {}", accessDeniedException.getMessage());
         response.sendError(HttpServletResponse.SC_FORBIDDEN);
     }
 }
+

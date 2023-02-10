@@ -34,7 +34,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	//로그인 및 토큰 발생
+	/*
+	 security 로그인 필터 + JWT토큰 발생
+	*/
 	
 	static final String JWT_SECRET = "mySecretKey!@";
 	 private static final int JWT_EXPIRATION_MS = 604800000;
@@ -88,9 +90,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             		throw new DisabledException("사용 할 수 없는 사용자 입니다.");
             	}   
             } catch(BadCredentialsException e) {
+            	//AbstractUserDetailsAuthenticationProvider에서 패스워드 자동 체크
             	//패스워드 실패 횟수 증가
             	// int comitCnt = userService.updateLoginFailCnt(userId);
-            	int comitCnt = 1;
+            	int comitCnt = 1; // id,pw실패 검증 없으므로 update 성공실패로 체크
             	if(comitCnt > 0) {
             		log.debug("id :["+userId +"] 패스워드가 다릅니다.");
             	}else {
@@ -133,7 +136,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				 .signWith(SignatureAlgorithm.HS512, jwt_secret)
 				 .compact(); 
         
-        //db에 넣어야 하나???
         
         response.addHeader("Authorization", "Bearer " + jwtToken);
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);

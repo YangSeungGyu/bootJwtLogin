@@ -69,14 +69,14 @@
 	function login(){
 		//loginFrm.userPwd.value = sha256(loginFrm.userPwd.value);
 		//alert(loginFrm.password.value);
-		
+		alert(sha256(loginFrm.userPwd.value));
 		if(false){
 			return false;
 		}
 		
 	
 		$.ajax({
-			url :'/login',
+			url :'/api/login',
 			data : JSON.stringify({
 				userId : loginFrm.userId.value,
 				userPwd : sha256(loginFrm.userPwd.value)

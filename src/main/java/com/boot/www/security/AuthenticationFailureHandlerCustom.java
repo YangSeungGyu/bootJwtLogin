@@ -19,6 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AuthenticationFailureHandlerCustom implements AuthenticationFailureHandler {
+	/*
+	security 로그인 실패
+	*/
 	@Autowired
 	private Gson gson;
 	

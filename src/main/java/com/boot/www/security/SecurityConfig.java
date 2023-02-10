@@ -1,6 +1,5 @@
 package com.boot.www.security;
 
-import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,8 +26,9 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-	//https://sbl133.tistory.com/88
-	
+	/*
+	spring security 필터 및 환경 설정
+	*/
 	private final UserCustomDetails userCustomDetails;
 	
     private final CorsConfig corsConfig;
@@ -42,7 +42,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .antMatchers("/","/css/**", "/js/**", "/images/**","/fonts/**");
+                .antMatchers("/","/css/**", "/js/**", "/images/**");
 
     }
     
@@ -51,18 +51,17 @@ public class SecurityConfig {
         http.csrf().disable();// csrf protection를 해제 jwt는 서버에 인증 정보를 저장하지 않는다
         
         http.authorizeRequests()
+        .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
         .antMatchers("/","/main","/auth/**","/test/pageTest","/test/selectPageList").permitAll()
-        //.antMatchers("/api/**","/test/**").hasRole("A")//ADMIN 전용 URL 셋팅 이건 자동으로 실패
 		.anyRequest().authenticated();//이건  BasicAuthenticationFilter 에서 에러 캐치는 되는데 그냥 넘김 
         
-        http.addFilter(corsConfig.corsFilter())// cors는 http제한 규격이다. 요청된 url이 동일해야 하거나 등
+        http.addFilter(corsConfig.corsFilter())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable() // 기본 httpBasic는 암호화되지 않아 취약하다 jwt에서는 사용하지 않는다. 
                 .addFilter(jwtAuthenticationFilter())
                 .addFilter(jwtAuthorizationFilter())
-                //.addFilterBefore(exceptionHandlerFilter(), LogoutFilter.class)//filter에서 에러터 발생시 처리
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler) //권한이 적절하지 않음
                 .authenticationEntryPoint(authenticationEntryPoint); //토큰 없거나 인증되지 않음.
@@ -88,6 +87,7 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean());
+        jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
         jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
         return jwtAuthenticationFilter;

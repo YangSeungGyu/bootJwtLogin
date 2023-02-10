@@ -31,8 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-	//토큰 체크 및 권한 재발행
-
+	/*
+	토큰 체크 및 권한 재발행
+	*/
     private final UserCustomDetails userCustomDetails;
     
     
@@ -40,13 +41,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	private PrincipalDetailsService principalDetailsService;
     
     
-   //???
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserCustomDetails userCustomDetails) {
         super(authenticationManager);
         this.userCustomDetails = userCustomDetails;
     }
-    
-
     
     
     @Override

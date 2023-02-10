@@ -17,7 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class PrincipalDetailsService implements UserDetailsService {
-    //private final UserRepository userRepository; -jpa interface구현할꺼면 사용
+	/*
+	-jpa 미사용(테스트용으로 db사용안함) - JwtAuthenticationFilter 호출
+	*/
 	
 	@Autowired    
 	private PasswordEncoder passwordEncoder;
@@ -31,7 +33,6 @@ public class PrincipalDetailsService implements UserDetailsService {
     	if(username.equals("admin")) {
     		user = new UserVO();
     		user.setUserId("admin");
-    		// user.setUserPwd(passwordEncoder.encode("1234"));
     		user.setUserPwd(passwordEncoder.encode(Sha256.encoder("1234")));
     		user.setAuth("A");
     		user.setFailCnt(0);

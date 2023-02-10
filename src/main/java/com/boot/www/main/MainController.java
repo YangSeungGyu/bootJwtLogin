@@ -27,7 +27,6 @@ public class MainController {
 	
 	@RequestMapping(value = "", method = {RequestMethod.GET}) 
 	public ModelAndView index(HttpServletRequest req, HttpServletResponse res){
-		log.debug("test111");
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("index");
@@ -36,7 +35,6 @@ public class MainController {
 	
 	@RequestMapping(value = "main", method = {RequestMethod.GET}) 
 	public ModelAndView main(HttpServletRequest req, HttpServletResponse res){
-		log.debug("test222");
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("/main/main");

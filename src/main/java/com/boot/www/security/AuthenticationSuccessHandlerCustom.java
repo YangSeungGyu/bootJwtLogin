@@ -22,6 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AuthenticationSuccessHandlerCustom implements AuthenticationSuccessHandler {
+	/*
+	security 로그인 성공
+	*/
 	
 	@Autowired
 	private Gson gson;
@@ -32,15 +35,6 @@ public class AuthenticationSuccessHandlerCustom implements AuthenticationSuccess
     UserCustomDetails userCustomDetails = (UserCustomDetails) authentication.getPrincipal();
     //---------------------------------------------------------------------------
     UserVO user = userCustomDetails.getUser();
-    //newSession.setAttribute("seq", user.getSeq());
-    //newSession.setAttribute("id", user.getId());
-    //newSession.setAttribute("level", user.getLevel());
-    //newSession.setAttribute("fCode", user.getFCode());
-    //newSession.setAttribute("sfCode", user.getSfCode());
-    //newSession.setAttribute("name", user.getName());
-    
-    //user.setFailCnt(0);
-	//mainService.updateFailCnt(user);
     response.setStatus(HttpServletResponse.SC_OK);
 	Result result = new Result();
 	

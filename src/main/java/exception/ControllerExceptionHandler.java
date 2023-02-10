@@ -13,7 +13,9 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
-
+	/*
+	 exception 발생시 특정 from형식으로 리턴
+	*/	
   @ExceptionHandler(CustomException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public Map<String,String> resourceNotFoundException(CustomException ex, WebRequest request, HttpServletResponse res) {
