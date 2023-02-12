@@ -22,6 +22,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.boot.www.auth.PrincipalDetailsService;
 import com.boot.www.auth.bean.UserCustomDetails;
 import com.boot.www.auth.bean.UserVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,13 +39,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	 security 로그인 필터 + JWT토큰 발생
 	*/
 	
-	static final String JWT_SECRET = "mySecretKey!@";
-	 private static final int JWT_EXPIRATION_MS = 604800000;
-
     private final AuthenticationManager authenticationManager;
     
     @Autowired
 	private Gson gson;
+    
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -122,8 +121,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     	log.debug("login-success");	
     	
     	UserCustomDetails userCustomDetails = (UserCustomDetails) authResult.getPrincipal();
-    	
-    	//토큰 생성
+    	/*
+    	//  Access 토큰 생성
         Date now = new Date();
 		Date expiryDate = new Date(now.getTime()+JWT_EXPIRATION_MS);
 		String jwt_secret =  JWT_SECRET;
@@ -135,9 +134,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				 .claim("auth", userCustomDetails.getUser().getAuth())
 				 .signWith(SignatureAlgorithm.HS512, jwt_secret)
 				 .compact(); 
+        */
+        String jwtToken = "Bearer " + TokenUtil.createAccessToken(userCustomDetails);
+        response.addHeader("Authorization",jwtToken);
         
         
-        response.addHeader("Authorization", "Bearer " + jwtToken);
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 

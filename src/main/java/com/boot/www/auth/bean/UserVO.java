@@ -18,4 +18,5 @@ public class UserVO {
 	private String state; //L:잠김 N:일반 H:휴먼
 	private String auth;
 	
+	
 }

@@ -13,9 +13,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.boot.www.auth.PrincipalDetailsService;
 import com.boot.www.auth.bean.Result;
 import com.boot.www.auth.bean.UserCustomDetails;
 import com.boot.www.auth.bean.UserVO;
+import com.boot.www.token.TokenUtil;
 import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,9 @@ public class AuthenticationSuccessHandlerCustom implements AuthenticationSuccess
 	
 	@Autowired
 	private Gson gson;
+	
+	@Autowired
+	private PrincipalDetailsService principalDetailsService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -41,6 +46,11 @@ public class AuthenticationSuccessHandlerCustom implements AuthenticationSuccess
 	//User 정보에서 필수 UserInfo로 변경
 	UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(userCustomDetails.getUsername(), authentication.getCredentials(), authentication.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(newAuth);
+    
+    //재발급 인증용 토큰 생성
+    String jwtRefreshToken = "Bearer " + TokenUtil.createRefreshToken(); 
+    principalDetailsService.insertRefreshToken(userCustomDetails.getUser(),jwtRefreshToken);// db에 저장
+    result.setData("jwtRefreshToken",jwtRefreshToken);
     
 	 response.setContentType("Application/json; charset=UTF-8");
 	 response.setStatus(HttpServletResponse.SC_OK);

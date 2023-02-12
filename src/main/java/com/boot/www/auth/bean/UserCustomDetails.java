@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UserCustomDetails implements UserDetails {
 
     private final UserVO user;
+    
+    private String reflashToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

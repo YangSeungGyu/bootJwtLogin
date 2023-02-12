@@ -60,4 +60,11 @@ public class PrincipalDetailsService implements UserDetailsService {
     	}
 		return user;
 	}
+    
+    
+    public void insertRefreshToken(UserVO user,String refreshToken){
+    	user.getUserId();
+    	user.getAuth();
+    	//dao 저장 (user.getAuth(),user.getUserId(),refreshToken)
+    }
 }
